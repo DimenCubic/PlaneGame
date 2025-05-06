@@ -83,6 +83,17 @@ void createBullet() {
 	}
 }
 
+void bulletMove() {
+	for (int i = 0; i < BULLET_NUM; i++) {
+		if (bullet[i].live) {
+			bullet[i].y -= 1;
+
+			// Boundarty check.
+			if (bullet[i].y < 0) bullet[i].live = false;
+		}
+	}
+}
+
 
 void planeMove(int speed) {
 	// Use Keyboard 
@@ -125,8 +136,11 @@ int main()
 		gameDraw();
 		FlushBatchDraw();
 		planeMove(3);
+		bulletMove();
 	}
 	 
+
+
 	return 0;
 }
 
