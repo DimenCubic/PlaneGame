@@ -47,10 +47,28 @@ void gameDraw() {
 	putimage(player.x, player.y, &img_plane[0]);
 	//putimage(WIDTH/2, 0, &img_plane[1]);
 	
-	
-
 }
 
+
+void planeMove(int speed) {
+	// Use Keyboard 
+	if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState('w')) {
+		player.y -= speed;
+	}
+
+	if (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState('s')) {
+		player.y += speed;
+	}
+
+	if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState('a')) {
+		player.x -= speed;
+	}
+
+	if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState('d')) {
+		player.x += speed;
+	}
+
+}
 
 int main()
 {
@@ -66,6 +84,7 @@ int main()
 	while (1) {
 		gameDraw();
 		FlushBatchDraw();
+		planeMove(3);
 	}
 	 
 	return 0;
