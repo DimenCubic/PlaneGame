@@ -52,21 +52,21 @@ void gameDraw() {
 
 void planeMove(int speed) {
 	// Use Keyboard 
-	if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState('W')) {
+	if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState('w')) {
 		
 		if(player.y > 0) player.y -= speed;
 
 	}
 
-	if (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState('S')) {
+	if (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState('s')) {
 		if (player.y < HEIGHT - 105) player.y += speed;
 	}
 
-	if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState('A')) {
+	if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState('a')) {
 		if (player.x > 0) player.x -= speed;
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState('D')) {
+	if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState('d')) {
 		if (player.x < WIDTH - 105) player.x += speed;
 	}
 
