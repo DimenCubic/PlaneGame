@@ -69,6 +69,21 @@ void gameDraw() {
 }
 
 
+void createBullet() {
+	for (int i = 0; i < BULLET_NUM; i++) {
+		if (!bullet[i].live) {
+			
+			//Generate one bullet.
+			bullet[i].x = player.x + 40;
+			bullet[i].y = player.y - 40;
+			bullet[i].live = true;
+
+			break;
+		}
+	}
+}
+
+
 void planeMove(int speed) {
 	// Use Keyboard 
 	if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState('W')) {
@@ -89,6 +104,11 @@ void planeMove(int speed) {
 		if (player.x < WIDTH - 105) player.x += speed;
 	}
 
+	if (GetAsyncKeyState(VK_SPACE)) {
+		
+		//Generate one bullet.
+		createBullet();           
+	}
 }
 
 int main()
