@@ -12,8 +12,6 @@ enum Axis {
 };
 
 
-
-
 void loadImg() {
 	// Initilization picture.
 	loadimage(&bk, "material\\Background.jpg");
