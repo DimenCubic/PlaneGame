@@ -2,37 +2,51 @@
 #include<graphics.h>
 
 IMAGE bk;
-IMAGE img_plane[2]; // Plane 
+IMAGE img_plane[2]; // Plane and Enemy
+IMAGE img_bullet;
 
 enum Axis {
-	
+
 	// BK
-	WIDTH = 480,          
-    HEIGHT = 850
+	WIDTH = 480,
+	HEIGHT = 850,
+
+	//Bullet
+	BULLET_NUM = 15
 };
 
 struct PLANE {
 	int x;
 	int y;
 	bool live;
-}player;
+}player, bullet[BULLET_NUM];
 
 
-// Initialize plane
-void planeInit() {
+// Initialize game
+void gameInit() {
+	
+	//Initialize plane.
 	player.x = WIDTH / 2;
 	player.y = HEIGHT - 120;
 	player.live = true;
+
+	// Initilization bullet
+	for (int i = 0; i < BULLET_NUM; i++) {
+		bullet[i].x = 0;
+		bullet[i].y = 0;
+		bullet[i].live = false;
+	}
 }
 
 
 void loadImg() {
-	// Initilization picture.
+	// Initilization Background.
 	loadimage(&bk, "material\\Background.jpg");
 	
-	// Load plane picture
+	// Load pictures.
 	loadimage(&img_plane[0], "material\\Plane.jpg");
-	//loadimage(&img_plane[1], "material\\Enemy.jpg");
+	
+	loadimage(&img_bullet, "material\\Bullet.jpg");
 }
 
 void gameDraw() {
@@ -45,7 +59,12 @@ void gameDraw() {
 
 	 
 	putimage(player.x, player.y, &img_plane[0]);
-	//putimage(WIDTH/2, 0, &img_plane[1]);
+	
+	for (int i = 0; i < BULLET_NUM; i++) {
+		if (bullet[i].live) {
+			putimage(bullet[i].x, bullet[i].y, &img_bullet);
+		}
+	}
 	
 }
 
@@ -77,10 +96,9 @@ int main()
 	// Game window
 	initgraph(480, 850);
 
-	planeInit();
+	gameInit();
 	
 	
-
 	// Two cache technique - deal with flash
 	BeginBatchDraw();
 	while (1) {
