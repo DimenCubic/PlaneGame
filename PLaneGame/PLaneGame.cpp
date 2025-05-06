@@ -115,11 +115,20 @@ void planeMove(int speed) {
 		if (player.x < WIDTH - 105) player.x += speed;
 	}
 
-	if (GetAsyncKeyState(VK_SPACE)) {
+	
+	
+	static DWORD t1 = 0, t2 = 0;   // DWORD means unsigned long. t1 = last fire time, t2 = current time. milliseconds
+	if (GetAsyncKeyState(VK_SPACE) && t2 - t1 > 100) {
 		
+		//BUG 1: It's not stable to generate several bullets as you want(It's a very weird performance, you will see multiple bullets sometime and only one bullet at another time). But what I want is the bullet should appear exactly when I click the space key.
+		//   Solve: To slow the respond speed of this command artifically. 
+
 		//Generate one bullet.
-		createBullet();           
+		createBullet();
+		t1 = t2;
 	}
+
+	t2 = GetTickCount(); 
 }
 
 int main()
