@@ -53,9 +53,9 @@ void gameInit() {
 	}
 
 	// Test
-	enemy[0].live = true;;
+	/*enemy[0].live = true;;
 	enemy[0].x = 10;
-	enemy[0].y = 10;
+	enemy[0].y = 10;*/
 
 }
 
@@ -162,6 +162,34 @@ void planeMove(int speed) {
 	t2 = GetTickCount(); 
 }
 
+
+// Create enemy, keep the maximum to ENEMY_NUM.
+// Have fixed y and random x.
+// One cycle only generate one enemy.
+void createEnemy() {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		if (!enemy[i].live) {
+			enemy[i].live = true;
+			enemy[i].y = 10;
+			enemy[i].x = rand() % (WIDTH - 60);
+			break;
+		}
+	}
+}
+
+void moveEnemy(int s) {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		if (enemy[i].live) {
+			enemy[i].y += s;
+
+			//Boundary check;
+			if (enemy[i].y > HEIGHT) enemy[i].live = false;
+		}
+
+		
+	}
+}
+
 int main()
 {
 	// Game window
@@ -177,6 +205,8 @@ int main()
 		FlushBatchDraw();
 		planeMove(3);
 		bulletMove();
+		createEnemy();
+		moveEnemy(1);
 	}
 	 
 
