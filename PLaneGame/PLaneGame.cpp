@@ -1,5 +1,6 @@
 ﻿#include<stdio.h>
 #include<graphics.h>
+#include<time.h>
 
 IMAGE bk;
 IMAGE img_plane[2]; // Plane and Enemy
@@ -177,6 +178,8 @@ void createEnemy() {
 	}
 }
 
+// BUG 2: After finishing this function, I find all enemy planes will move together. I want them to move independently.
+//    Solve :  1.Maybe can solve this problem by using the samr idea of bulletMove function? Increasing the generating time of the enemy planes.
 void moveEnemy(int s) {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (enemy[i].live) {
@@ -189,6 +192,7 @@ void moveEnemy(int s) {
 		
 	}
 }
+
 
 int main()
 {
@@ -205,7 +209,15 @@ int main()
 		FlushBatchDraw();
 		planeMove(3);
 		bulletMove();
-		createEnemy();
+		//createEnemy();
+
+		static DWORD t1, t2;
+		if (t2 - t1 > 500) {
+			createEnemy();
+			t1 = t2;
+		}
+		t2 = clock(); // clock() using the CPU time, GetTickCount() using the system time.
+
 		moveEnemy(1);
 	}
 	 
