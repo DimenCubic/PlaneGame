@@ -12,15 +12,23 @@ enum Axis {
 	HEIGHT = 850,
 
 	//Bullet
-	BULLET_NUM = 15
+	BULLET_NUM = 15,
+
+	//Enemy
+	ENEMY_NUM = 10
 };
 
 struct PLANE {
 	int x;
 	int y;
 	bool live;
-}player, bullet[BULLET_NUM];
 
+	// for enemy.
+	int hp;
+
+}player, bullet[BULLET_NUM], enemy[ENEMY_NUM];
+
+ 
 
 // Initialize game
 void gameInit() {
@@ -36,6 +44,13 @@ void gameInit() {
 		bullet[i].y = 0;
 		bullet[i].live = false;
 	}
+
+	// Initilization enemy
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		enemy[i].live = false;
+		enemy[i].hp = 1;
+	}
+
 }
 
 
@@ -47,6 +62,8 @@ void loadImg() {
 	loadimage(&img_plane[0], "material\\Plane.jpg");
 	
 	loadimage(&img_bullet, "material\\Bullet.jpg");
+
+	loadimage(&img_plane[1], "material\\Enemy.jpg");
 }
 
 void gameDraw() {
