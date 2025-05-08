@@ -206,7 +206,10 @@ bool Time(int ms, int id) {
 	return false;
 }
 	 
+void fire() {
+	
 
+}
 
 
 int main()
