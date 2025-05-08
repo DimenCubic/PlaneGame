@@ -49,7 +49,13 @@ void gameInit() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		enemy[i].live = false;
 		enemy[i].hp = 1;
+		
 	}
+
+	// Test
+	enemy[0].live = true;;
+	enemy[0].x = 10;
+	enemy[0].y = 10;
 
 }
 
@@ -74,12 +80,20 @@ void gameDraw() {
 	// Draw Pictures
 	putimage(0, 0, &bk); 
 
-	 
+	 // Draw player
 	putimage(player.x, player.y, &img_plane[0]);
 	
+	//Draw bullets
 	for (int i = 0; i < BULLET_NUM; i++) {
 		if (bullet[i].live) {
 			putimage(bullet[i].x, bullet[i].y, &img_bullet);
+		}
+	}
+
+	// Draw enemy
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		if (enemy[i].live) {
+			putimage(enemy[i].x, enemy[i].y, &img_plane[1]);
 		}
 	}
 	
