@@ -179,7 +179,8 @@ void createEnemy() {
 }
 
 // BUG 2: After finishing this function, I find all enemy planes will move together. I want them to move independently.
-//    Solve :  1.Maybe can solve this problem by using the samr idea of bulletMove function? Increasing the generating time of the enemy planes.
+//    Solve :  1.Maybe can solve this problem by using the similar idea of bulletMove function? Increasing the generating time of the enemy planes.
+//			   2.Imporve capsulation. Create a timer function.
 void moveEnemy(int s) {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (enemy[i].live) {
@@ -192,6 +193,20 @@ void moveEnemy(int s) {
 		
 	}
 }
+
+
+// By using this, we can have multiple timers at the same time.
+bool Time(int ms, int id) {
+	static DWORD t[10];
+	if (clock() - t[id] > ms) {
+		 
+		t[id] = clock(); // clock() using the CPU time, GetTickCount() using the system time. return miliseconds.
+		return true;
+	}
+	return false;
+}
+	 
+
 
 
 int main()
@@ -209,14 +224,9 @@ int main()
 		FlushBatchDraw();
 		planeMove(3);
 		bulletMove();
-		//createEnemy();
-
-		static DWORD t1, t2;
-		if (t2 - t1 > 500) {
-			createEnemy();
-			t1 = t2;
-		}
-		t2 = clock(); // clock() using the CPU time, GetTickCount() using the system time.
+		
+		if (Time(500, 0))
+		createEnemy();
 
 		moveEnemy(1);
 	}
