@@ -173,6 +173,7 @@ void createEnemy() {
 			enemy[i].live = true;
 			enemy[i].y = 10;
 			enemy[i].x = rand() % (WIDTH - 60);
+			enemy[i].hp = 1; // Fix for BUG 3.
 			break;
 		}
 	}
@@ -187,6 +188,7 @@ void moveEnemy(int s) {
 			enemy[i].y += s;
 
 			//Boundary check;
+
 			if (enemy[i].y > HEIGHT) enemy[i].live = false;
 		}
 
@@ -207,6 +209,8 @@ bool Time(int ms, int id) {
 }
 	
 // Function for beat the enemy plane.
+// BUG 3: After destroying several planes, we can't destroy the plane anymore.
+//    Solve: We forget to reset the hp of the plane. we can do it in generation or fire funtion.
 void fire() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (!enemy[i].live) continue;
