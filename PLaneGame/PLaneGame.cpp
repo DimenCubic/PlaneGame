@@ -211,13 +211,17 @@ bool Time(int ms, int id) {
 // Function for beat the enemy plane.
 // BUG 3: After destroying several planes, we can't destroy the plane anymore.
 //    Solve: We forget to reset the hp of the plane. we can do it in generation or fire funtion.
+
+// BUG 4; Plane will disappear by itself without touching the bullet.
+//	  Solve: The plane will destroy only by attaced the bullet. According to the structure of my code, when my bullet destroy, it will still stay at the original location as a transparent bullet before it's been generated again. So by adding safety checking, we can solve this problem.
 void fire() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (!enemy[i].live) continue;
 
 		for (int k = 0; k < BULLET_NUM; k++) {
-			if (bullet[k].x > enemy[i].x && bullet[k].x < enemy[i].x + 100
-				&& bullet[k].y > enemy[i].y && bullet[k].y < enemy[i].y + 100) {
+			if (bullet[k].live == true &&
+				bullet[k].x > enemy[i].x && bullet[k].x < enemy[i].x + 100 &&
+				bullet[k].y > enemy[i].y && bullet[k].y < enemy[i].y + 100) {
 
 				bullet[k].live = false;
 				enemy[i].hp--;
