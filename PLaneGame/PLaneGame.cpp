@@ -209,7 +209,7 @@ bool Time(int ms, int id) {
 // Function for beat the enemy plane.
 void fire() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (enemy[i].live) continue;
+		if (!enemy[i].live) continue;
 
 		for (int k = 0; k < BULLET_NUM; k++) {
 			if (bullet[k].x > enemy[i].x && bullet[k].x < enemy[i].x + 100
