@@ -205,9 +205,25 @@ bool Time(int ms, int id) {
 	}
 	return false;
 }
-	 
-void fire() {
 	
+// Function for beat the enemy plane.
+void fire() {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		if (enemy[i].live) continue;
+
+		for (int k = 0; k < BULLET_NUM; k++) {
+			if (bullet[k].x > enemy[i].x && bullet[k].x < enemy[i].x + 100
+				&& bullet[k].y > enemy[i].y && bullet[k].y < enemy[i].y + 100) {
+
+				bullet[k].live = false;
+				enemy[i].hp--;
+
+				if (enemy[i].hp == 0)enemy[i].live = false;
+
+
+			}
+		}
+	}
 
 }
 
@@ -232,6 +248,7 @@ int main()
 		createEnemy();
 
 		moveEnemy(1);
+		fire();
 	}
 	 
 
